@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 """
 Updated on Sat Feb 20, 2021
-
 @author: ivanmugu
 """
 
@@ -29,9 +28,11 @@ def user_input():
     epilog_msg = (
         """\
         To run this program, you need a folder containing subfolders with
-        unicycler results. For example, you can have a folder named input
-        containing the SW0001 and SW0002 unicycler result subfolders as follow:
-        input/
+        unicycler results. For example, you can have a folder named results
+        that will be the input folder and will contain the SW0001 and SW0002
+        unicycler result subfolders as follows:
+
+        results/
             SW0001/
                 unicycler.log
             SW0002/
@@ -48,7 +49,7 @@ def user_input():
         unicycler.log files.
 
         Usage examples:
-        python3 log_file_parser.py -i ~/Documents/input -o ~/Documents/input
+        python3 log_parser.py -i ~/Documents/results -o ~/Documents/results
 
         python3 log_file_parser -i . -o .
 
@@ -394,9 +395,8 @@ def extract_alignment_summary(table):
         alignment_summary = re.sub(r'([^\s])(\s)([^\s])',
                                    r'\1_\3', alignment_summary)
         # Replace multiple line's spaces with '\t' and conver line in list
-        alignment_summary = (
-            re.sub(r'\s+', r'\t',
-                   alignment_summary)).split('\t')
+        alignment_summary = (re.sub(r'\s+', r'\t',
+                                    alignment_summary)).split('\t')
         # Extract relevant data. The second column is the one with therefore
         # values; therefore the program uses index 1 of aligment_summary
         alignment_summary_list.append(alignment_summary[1])
@@ -523,9 +523,9 @@ def main():
     assemblies_summary(file_addresses, dir_names, output_directory)
     # If everything went OK
     print(
-        "\nthe assemblies_summary.csv and molecules_summary.csv files are in:")
-    print(f"{os.path.abspath(output_directory)}\n")
-    print("Done!")
+        "The assemblies_summary.csv and molecules_summary.csv files are in:")
+    print(f"{os.path.abspath(output_directory)}")
+    print("log_parser.py is done!")
     sys.exit(0)
 
 if __name__ == '__main__':
